@@ -61,9 +61,29 @@ Basic Setup instructions for developing the plugin;
         $wgWaveDromDebug = true ;
 ```
 
+* Confirm the plugin is enabled, and passing  
+    http://localhost/mediawiki-1.35.0/index.php?title=Special:Version
+
 * Read TestPage with purge
   - http://localhost/mediawiki-1.35.0/index.php?title=TestPage&action=purge
 
+* Debug information for your page load or PHP issues  
+  Add the following to your LocalSettings.php
+```html
+//
+// DEBUG SUPPORT
+//
+// https://www.mediawiki.org/wiki/Manual:How_to_debug#PHP_errors
+//
+error_reporting( -1 );
+ini_set( 'display_errors', 1 );
+$wgDebugToolbar=true;
+$wgShowExceptionDetails = true;
+$wgResourceLoaderDebug = true ;
+$wgDebugLogFile = "/tmp/debug.txt";
+```
+
+Also check your httpd/php logs, via php.ini; for me this is "fail -f /var/log/php-fpm/www-error.log"
 
 * Sample Media Wiki Source Page
 
