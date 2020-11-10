@@ -1,0 +1,95 @@
+{
+	"name": "WaveDrom",
+	"version": "1.0.0, 2016-05-24",
+	"author": ["[https://github.com/Martoni/mediawiki_wavedrom Some Guy]"],
+	"url": "https://github.com/Martoni/mediawiki_wavedrom",
+	"descriptionmsg": "wavedrom-desc",
+	"license-name": "[https://www.gnu.org/licenses/gpl-2.0.html GNU General Public Licence 2.0] or later",
+	"type": "parserhook",
+	"callback": "WaveDrom::onRegistration",
+	"config": {
+		"TreeAndMenuPersistIfId": false,           "@": "Makes trees with id attributes have persistent state"
+	},
+	"AutoloadClasses": {
+		"WaveDrom": "WaveDrom_body.php"
+	},
+	"ExtensionMessagesFiles": {
+		"WaveDromMagic": "WaveDrom.i18n.magic.php"
+	},
+	"MessagesDirs": {
+		"WaveDrom": ["i18n"]
+	},
+	"ResourceModules": {
+		"ext.wavedrom.postprocessing": {
+			"scripts": [
+				"modules/wavedromframe.js"
+			]
+			,
+ 		"styles": [
+			"modules/ve/ve.ui.MWWaveDrom.css"
+		],
+		"dependencies": [
+			"mediawiki.router",
+			"mediawiki.api"
+		],
+		"messages": [
+			"visualeditor-mwwavedrom-tool"
+		],
+		"targets": [
+			"desktop",
+			"mobile"
+		]
+	},
+
+		"ext.wavedrom.visualEditor": {
+			"scripts": [
+				"modules/ve/ve.dm.MWWavedromNode.js",
+				"modules/ve/ve.dm.MWWavedromInlineNode.js",
+				"modules/ve/ve.ce.MWWavedromNode.js",
+				"modules/ve/ve.ui.MWWavedromDialogTool.js",
+				"modules/ve/ve.ui.MWWavedromDialog.js",
+				"modules/ve/ve.ui.MWWavedromContextItem.js"
+			],
+ 		"styles": [
+    		"modules/ve/ve.ui.MWWaveDrom.css"
+        ],
+			"dependencies": [
+				"jquery.throttle-debounce",
+				"ext.visualEditor.mwcore",
+				"oojs-ui.styles.icons-content",
+				"oojs-ui.styles.icons-location",
+				"mediawiki.api"
+			],
+			"messages": [
+				"visualeditor-mwwavedrom-tool",
+				"visualeditor-mwwavedromdialog-align",
+				"visualeditor-mwwavedromdialog-wavejson",
+				"visualeditor-mwwavedromdialog-size",
+				"visualeditor-mwwavedromdialog-title",
+				"visualeditor-mwwavedromcontextitem-title",
+				"visualeditor-mwwavedromcontextitem-nosupport",
+
+				"visualeditor-mwwavedromdialog-position-button",
+                "visualeditor-mwwavedromdialog-reset-map",
+                
+                "visualeditor-mwwavedrom-style-title",
+                "visualeditor-mwwavedrom-style-title-help",
+				"visualeditor-mwwavedrom-pulldownA",
+				"visualeditor-mwwavedrom-pulldownB",
+				"visualeditor-mwwavedrom-pulldownC"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
+			]
+		}
+	},
+	"@": "The paths will be populated later as it needs be calculated",
+	"ResourceFileModulePaths": {
+		"localBasePath": "",
+		"remoteExtPath": "WaveDrom"
+	},
+	"VisualEditorPluginModules": [
+		"ext.wavedrom.visualEditor"
+	]
+}

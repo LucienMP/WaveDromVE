@@ -1,0 +1,27 @@
+{
+	"@metadata": {
+		"authors": [
+			"Lucien Murray-Pitts"
+		]
+	},
+	"wavedrom-desc": "Allows waveforms to be drawn discriptively to the wiki pages",
+	"visualeditor-mwwavedrom-tool": "Wavedrom Tool",
+
+
+	"visualeditor-mwwavedromdialog-position-button": "Some Pulldown Menu",
+	"visualeditor-mwwavedromdialog-reset-map" : "Unused Button",
+
+	"visualeditor-mwwavedrom-style-title": "Style Type",
+	"visualeditor-mwwavedrom-style-title-help": "This selects the style used to render your waveform or schematic",
+	"visualeditor-mwwavedrom-pulldownA": "Option A; default",
+	"visualeditor-mwwavedrom-pulldownB": "Option B; ...",
+	"visualeditor-mwwavedrom-pulldownC": "Option C; ...",
+
+	"visualeditor-mwwavedromdialog-align": "Alignment",
+	"visualeditor-mwwavedromdialog-wavejson": "WaveJSON",
+	"visualeditor-mwwavedromdialog-size": "Size",
+	"visualeditor-mwwavedromdialog-title": "Wavedrom",
+
+	"visualeditor-mwwavedromcontextitem-nosupport": "This map contains dynamic features, and for now can only be edited in source mode.",
+	"visualeditor-mwwavedromcontextitem-title": "Wavedrom Edit"
+}
