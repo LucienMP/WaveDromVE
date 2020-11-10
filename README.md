@@ -52,10 +52,11 @@ Basic Setup instructions for developing the plugin;
 ```
 
 * Setup the MediaWiki Visual Editor extension
-    1. git clone https://github.com/lucienmp/WaveDromVE
-    2. Rename to WaveDrom
-    3. Set the locaiton of the altered WaveDrom WebApp in your LocalSettings.php
+    1. Move to mediawiki-1.35.0/extensions folder
+    2. git clone https://github.com/lucienmp/WaveDromVE WaveDrom
+    2. Set the locaiton of the altered WaveDrom WebApp in your LocalSettings.php
 ```html
+        wfLoadExtension('WaveDrom');
         $wgWaveDromURL = "http://localhost/path/to/wavedrom";
         $wgWaveDromDebug = true ;
 ```
