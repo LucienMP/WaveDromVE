@@ -34,7 +34,7 @@ Basic Setup instructions for developing the plugin;
    Move this file to inside your mediawiki-1.35.0 folder.  
    
    
-* Setup wavedrom in http://localhsot/wavedrom
+* Setup wavedrom in http://localhost/wavedrom
    1. git clone https://github.com/lucienmp/wavedrom
    2. cd wavedrom
    3. git checkout wavedrom
@@ -50,14 +50,15 @@ Basic Setup instructions for developing the plugin;
         npm install eslint
         grunt
 ```
+  5. You can manually check wave drom via going to http://localhost/wavedrom/test/test.html
 
-* Setup the MediaWiki Visual Editor extension
+* Setup the MediaWiki Visual Editor extension (in http://localhost/mediawiki-1.35.0)
     1. Move to mediawiki-1.35.0/extensions folder
     2. git clone https://github.com/lucienmp/WaveDromVE WaveDrom
     2. Set the locaiton of the altered WaveDrom WebApp in your LocalSettings.php
 ```html
         wfLoadExtension('WaveDrom');
-        $wgWaveDromURL = "http://localhost/path/to/wavedrom";
+        $wgWaveDromURL = "http://localhost/wavedrom";
         $wgWaveDromDebug = true ;
 ```
 
