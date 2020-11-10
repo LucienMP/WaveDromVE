@@ -16,22 +16,22 @@ Visual Editor API documentaiton
  * See the modules/ve/ and grep for .register function to see whats hooked
 
 Basic Setup instructions for developing the plugin;
-* Untar MediaWiki 1.35 to your http folder as say mediawiki-1.35.0
-   REF: https://www.mediawiki.org/wiki/Download
-   NOTE: You will need PHP7.3 or better (7.4.0-7.4.10 are broken)
-         For me this meant FedoraCore32 
-   NOTE: I highly recommend MiriaDb/MySQL as your database
+* Untar MediaWiki 1.35 to your http folder as say mediawiki-1.35.0  
+   REF: https://www.mediawiki.org/wiki/Download  
+   NOTE: You will need PHP7.3 or better (7.4.0-7.4.10 are broken)  
+         For me this meant FedoraCore32  
+   NOTE: I highly recommend MiriaDb/MySQL as your database  
    
 * Configure Media Wiki
-   Point your browser to htttp://yourserver/mediawiki-1.35
-   It will give you a web page with various questions.
-   Follow the instructions for setting up a new Wiki
-   Most of them dont matter, just include the VisualEditor extension.
-   And make it a public wiki, I suggest Timeless skin as well.
+   Point your browser to htttp://yourserver/mediawiki-1.35  
+   It will give you a web page with various questions.  
+   Follow the instructions for setting up a new Wiki  
+   Most of them dont matter, just include the VisualEditor extension.  
+   And make it a public wiki, I suggest Timeless skin as well.  
+     
+   This will generate the LocalSettings.php file which will you will be given at the last screen.  
    
-   This will generate the LocalSettings.php file which will you will be given at the last screen.
-   
-   Move this file to inside your mediawiki-1.35.0 folder.
+   Move this file to inside your mediawiki-1.35.0 folder.  
    
    
 * Setup wavedrom in http://localhsot/wavedrom
