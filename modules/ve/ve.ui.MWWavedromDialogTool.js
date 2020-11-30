@@ -28,8 +28,8 @@ ve.ui.MWWavedromDialogTool.static.name = 'mwWavedrom';
 ve.ui.MWWavedromDialogTool.static.group = 'object';
 ve.ui.MWWavedromDialogTool.static.icon = 'map'; // LMP-A: oojs-ui.styles.icons-content, MENU
 ve.ui.MWWavedromDialogTool.static.title = OO.ui.deferMsg( 'visualeditor-mwwavedromdialog-title' );
-ve.ui.MWWavedromDialogTool.static.modelClasses = [ ve.dm.MWWavedromNode, ve.dm.MWWavedromInlineNode ];
-//ve.ui.MWWavedromDialogTool.static.modelClasses = [ ve.dm.MWWavedromNode ];
+// ve.ui.MWWavedromDialogTool.static.modelClasses = [ ve.dm.MWWavedromNode, ve.dm.MWWavedromInlineNode ];
+ve.ui.MWWavedromDialogTool.static.modelClasses = [ ve.dm.MWWavedromNode ];
 ve.ui.MWWavedromDialogTool.static.commandName = 'mwWavedrom';
 
 //if ( mw.config.get( 'wgWavedromEnableFrame' ) )

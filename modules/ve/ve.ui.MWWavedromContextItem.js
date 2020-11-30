@@ -32,8 +32,8 @@ ve.ui.MWWavedromContextItem.static.icon = 'map';
 
 ve.ui.MWWavedromContextItem.static.label = OO.ui.deferMsg( 'visualeditor-mwwavedromcontextitem-title' );
 
-ve.ui.MWWavedromContextItem.static.modelClasses = [ ve.dm.MWWavedromInlineNode, ve.dm.MWWavedromNode ];
-//ve.ui.MWWavedromContextItem.static.modelClasses = [ ve.dm.MWWavedromNode ];
+// ve.ui.MWWavedromContextItem.static.modelClasses = [ ve.dm.MWWavedromInlineNode, ve.dm.MWWavedromNode ];
+ve.ui.MWWavedromContextItem.static.modelClasses = [ ve.dm.MWWavedromNode ];
 
 ve.ui.MWWavedromContextItem.static.commandName = 'mwWavedrom';
 
