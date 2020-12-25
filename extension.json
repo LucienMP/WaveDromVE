@@ -29,6 +29,9 @@
 			"scripts": [
 				"wavedromframe.js"
 			],
+			"styles": [
+				"wavedromframe.less"
+			],
 			"messages": [
 				"visualeditor-mwwavedrom-tool"
 			],
@@ -44,6 +47,9 @@
 				"ve/ve.ui.MWWavedromDialogTool.js",
 				"ve/ve.ui.MWWavedromDialog.js",
 				"ve/ve.ui.MWWavedromContextItem.js"
+			],
+			"styles": [
+				"ve/ve.ui.MWWavedromDialog.less"
 			],
 			"dependencies": [
 				"jquery.throttle-debounce",

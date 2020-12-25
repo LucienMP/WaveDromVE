@@ -17,7 +17,7 @@ ve.ui.MWWavedromDialog = function VeUiMWWavedromDialog() {
 	// Parent constructor
 	ve.ui.MWWavedromDialog.super.apply( this, arguments );
 
-	this.updateGeoJson = $.debounce( 300, $.proxy( this.updateGeoJson, this ) );
+	this.updateWavedrom = $.debounce( 300, $.proxy( this.updateWavedrom, this ) );
 };
 
 /* Inheritance */
@@ -33,6 +33,13 @@ ve.ui.MWWavedromDialog.static.title = OO.ui.deferMsg( 'visualeditor-mwwavedromdi
 ve.ui.MWWavedromDialog.static.size = 'larger';
 
 ve.ui.MWWavedromDialog.static.allowedEmpty = true;
+
+ve.ui.MWWavedromDialog.static.alignClasses = {
+	left: 'tleft',
+	center: 'tcenter',
+	right: 'tright',
+	none: 'tnone'
+};
 
 // ve.ui.MWWavedromDialog.static.modelClasses = [ ve.dm.MWWavedromNode, ve.dm.MWWavedromInlineNode ];
 ve.ui.MWWavedromDialog.static.modelClasses = [ ve.dm.MWWavedromNode ];
@@ -51,8 +58,9 @@ ve.ui.MWWavedromDialog.prototype.initialize = function () {
 	ve.ui.MWWavedromDialog.super.prototype.initialize.call( this );
 
 
-		var panel2 = $( '<div>' ).addClass( 've-ui-mwWavedromDialog-waveWidget' );
-		panel2.attr( 'style', 'border: 1px solid black; border-radius: 5px; margin-top: 1em;' );
+	this.$waveWidget = $( '<div>' )
+		.addClass( 've-ui-mwWavedromDialog-waveWidget' )
+		.attr( 'style', 'border: 1px solid black; border-radius: 5px; margin-top: 1em;' );
 
 /*
 		$( '<div>' );
@@ -72,9 +80,13 @@ ve.ui.MWWavedromDialog.prototype.initialize = function () {
 		} );
 */
 
-	// this.$mapContainer = $( '<div>' ).addClass( 've-ui-mwWavedromDialog-waveWidget' );
-	this.$mapContainer = $( '<div>' ).addClass( 've-ui-mwWavedromDialog-waveContainer');
-	this.$mapContainer.appendTo( panel2 );
+	this.$wavedromContainer = $( '<div>' ).addClass( 'mw-wavedrom-container thumb' );
+	this.$wavedromThumbinner = $( '<div>' )
+		.addClass( 'thumbinner wavdrom-scaled-container' )
+		.attr( 'style', 'width: 100%; height: 100%' )
+		.appendTo( this.$wavedromContainer );
+	this.$wavedromContainer.appendTo( this.$waveWidget );
+	// this.$wavedromClearer = $( '<div style="clear: both; height: 1px;">' ).appendTo( this.$waveWidget );
 
 	this.wavedromValue = '';
 
@@ -99,7 +111,7 @@ ve.ui.MWWavedromDialog.prototype.initialize = function () {
 	// 	label: ve.msg( 'visualeditor-mwwavedromdialog-reset-map' )
 	// } );
 
-	panel = new OO.ui.PanelLayout( {
+	this.panel = new OO.ui.PanelLayout( {
 		padded: true,
 		expanded: false
 	} );
@@ -176,24 +188,20 @@ ve.ui.MWWavedromDialog.prototype.initialize = function () {
     // FIXME> Select the correct pulldown for the style, or select the "default"
     // this.typeSelect.selectItemByData( this.imageModel.getType() || 'none' );
 
-	this.$mapPositionContainer = $( '<div>' ).addClass( 've-ui-mwMapsDialog-position' );
+	// this.$mapPositionContainer = $( '<div>' ).addClass( 've-ui-mwMapsDialog-position' );
 
 	this.geoJsonField = new OO.ui.FieldLayout( this.input, {
 		align: 'top',
 		label: ve.msg( 'visualeditor-mwwavedromdialog-wavejson' )
 	} );
 
-	panel.$element.append(
+	this.panel.$element.append(
 		this.dimensionsField.$element,
 		this.alignFieldset.$element,
-//		this.alignField.$element,
-//		this.$mapContainer,
-	   panel2,
-//		this.$mapPositionContainer.append( this.typeSelectDropdown.$element, this.resetMapButton.$element ),
-// 		this.$mapPositionContainer.append( this.typeFieldset.$element, this.resetMapButton.$element ),
+	    this.$waveWidget,
 		this.geoJsonField.$element
 	);
-	this.$body.append( panel.$element );
+	this.$body.append( this.panel.$element );
 };
 
 /**
@@ -202,12 +210,18 @@ ve.ui.MWWavedromDialog.prototype.initialize = function () {
  * @param {string} newValue
  */
 ve.ui.MWWavedromDialog.prototype.onDimensionsChange = function () {
+	WaveDrom.Process( this.$wavedromThumbinner.get( 0 ), this.wavedromValue );
+	this.updateActions();
+	this.updateWavedromImageSize();
 	// Set container width for centering
 	this.updateSize();
-
-	WaveDrom.Process( this.$mapContainer.get( 0 ), this.wavedromValue );
-	this.updateActions();
 };
+
+ve.ui.MWWavedromDialog.prototype.updateWavedromImageSize = function () {
+	this.$wavedromThumbinner.find( 'svg' )
+		.attr( 'width', this.$wavedromThumbinner.width() )
+		.attr( 'height', this.$wavedromThumbinner.height() );
+}
 
 /**
  * Update action states
@@ -222,6 +236,10 @@ ve.ui.MWWavedromDialog.prototype.updateActions = function () {
 		modified = !ve.compare( mwData, newMwData );
 	} else {
 		modified = true;
+	}
+
+	if ( modified ) {
+		this.updateSize();
 	}
 
 	this.actions.setAbilities( { done: modified } );
@@ -254,7 +272,6 @@ ve.ui.MWWavedromDialog.prototype.updateMwData = function ( mwData ) {
 	// Parent method
 	ve.ui.MWWavedromDialog.super.prototype.updateMwData.call( this, mwData );
 
-	this.alignCheckbox.setSelected( mwData.attrs.align !== 'none' );
 	var isSelected = this.alignCheckbox.isSelected() ;
 
 	// LMP: Disable alignment selection if "wrap text" is not selected
@@ -274,6 +291,16 @@ ve.ui.MWWavedromDialog.prototype.updateMwData = function ( mwData ) {
     } else {
 		mwData.attrs.align = 'none' ;
     }
+
+    var mwAttrs = mwData.attrs,
+	    alignClasses = this.constructor.static.alignClasses;
+
+	// this.$wavedromClearer.width( mwAttrs.width );
+    this.$wavedromContainer
+		.width( mwAttrs.width )
+		.height( mwAttrs.height )
+	    .removeClass( 'tleft tright tnone tcenter' )
+		.addClass( alignClasses[mwAttrs.align] || alignClasses.none );
 };
 
 /**
@@ -311,9 +338,11 @@ ve.ui.MWWavedromDialog.prototype.getSetupProcess = function ( data ) {
 				);
 			}
 
+			this.alignCheckbox.setSelected( mwAttrs.align !== 'none' );
+
 			// Events
 			this.input.connect( this, {
-				change: 'updateGeoJson',
+				change: 'updateWavedrom',
 				resize: 'updateSize'
 			} );
 			this.dimensions.connect( this, {
@@ -330,11 +359,10 @@ ve.ui.MWWavedromDialog.prototype.getSetupProcess = function ( data ) {
 			// TODO: Support block/inline conversion
 			this.align.selectItemByData( mwAttrs.align || 'right' );
 
-			// this.resetMapButton.$element.toggle( !!this.selectedNode );
-
 			this.dimensions.setDimensions( this.scalable.getCurrentDimensions() );
 
 			this.updateActions();
+			this.updateWavedromImageSize();
 		}, this );
 };
 
@@ -342,15 +370,17 @@ ve.ui.MWWavedromDialog.prototype.getSetupProcess = function ( data ) {
  * Setup the map control
  */
 ve.ui.MWWavedromDialog.prototype.setupWavedromRender = function () {
-	WaveDrom.Process( this.$mapContainer.get( 0 ), this.wavedromValue );
+	WaveDrom.Process( this.$wavedromThumbinner.get( 0 ), this.wavedromValue );
+	this.updateWavedromImageSize();
 };
 
 /**
- * Update the GeoJSON layer from the current input state
+ * Update the Wavedrom layer from the current input state
  */
-ve.ui.MWWavedromDialog.prototype.updateGeoJson = function () {
+ve.ui.MWWavedromDialog.prototype.updateWavedrom = function () {
 	this.wavedromValue = this.input.getValue();
-	WaveDrom.Process( this.$mapContainer.get( 0 ), this.wavedromValue );
+	WaveDrom.Process( this.$wavedromThumbinner.get( 0 ), this.wavedromValue );
+	this.updateWavedromImageSize();
 };
 
 /**
@@ -367,6 +397,15 @@ ve.ui.MWWavedromDialog.prototype.getTeardownProcess = function ( data ) {
 			this.dimensions.clear();
 		}, this );
 };
+
+ve.ui.MWWavedromDialog.prototype.updateSize = function () {
+	this.$waveWidget.css( 'height', '' );
+	ve.ui.MWWavedromDialog.super.prototype.updateSize.apply( this, arguments );
+	setTimeout( function () {
+		var newHeight = this.$waveWidget.height() - this.panel.$element.outerHeight() + this.$body.height();
+		this.$waveWidget.height( newHeight > 50 ? newHeight : 50 );
+	}.bind( this ), 400 )
+}
 
 /* Registration */
 

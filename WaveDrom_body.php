@@ -41,7 +41,7 @@ class WaveDrom {
             'left' => 'tleft',
             'center' => 'tcenter',
             'right' => 'tright',
-            'none' => 'tnone'
+            'none' => 'tnone',
         ];
 
         # DIV is rendered via JS module

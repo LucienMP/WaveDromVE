@@ -92,8 +92,8 @@ ve.ce.MWWavedromNode.prototype.update = function () {
 		}
 
 	this.$element
-		.removeClass( 'tleft tright tnone' )
-		.addClass( alignClasses[ align ] )
+		.removeClass( 'tleft tright tnone tcenter' )
+		.addClass( alignClasses[align] || alignClasses.none )
 		.css( this.model.getCurrentDimensions() );
 };
 
@@ -104,7 +104,7 @@ ve.ce.MWWavedromNode.prototype.setupWavedrom = function () {
   // Container that allows for Wavedrom Scaling to certain size
 	// TODO: should be moved to initialize() when wavedrom will be able to render detached elements
 	this.$scaledcontainer = $( '<div>' )
-		.addClass('thumbinner wavdrom-scaled-container')
+		.addClass( 'thumbinner wavdrom-scaled-container' )
 		.appendTo( this.$element[ 0 ] )
 		.css( { height: '100%', width: '100%' } );
 
@@ -112,11 +112,11 @@ ve.ce.MWWavedromNode.prototype.setupWavedrom = function () {
 };
 
 ve.ce.MWWavedromNode.prototype.initialize = function () {
-	this.$element.addClass( 'mw-wavedrom-container thumb').attr( 'style', 'display: inline-block;' );
+	this.$element.addClass( 'mw-wavedrom-container thumb' ).attr( 'style', 'display: inline-block;' );
 };
 
 /**
- * Update the GeoJSON layer from the current model state
+ * Update the Wavedrom layer from the current model state
  */
 ve.ce.MWWavedromNode.prototype.updateWavedrom = function () {
 	var mwData = this.model.getAttribute( 'mw' ),
