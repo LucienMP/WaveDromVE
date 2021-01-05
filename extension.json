@@ -104,17 +104,5 @@
 		"localBasePath": "modules",
 		"remoteExtPath": "WaveDrom/modules"
 	},
-	"config": {
-		"WaveDromURL": {
-			"description": "Location of the WaveDrom WebApp",
-			"public": true,
-			"value": "https://wavedrom.com/"
-		},
-		"WaveDromDebug": {
-			"description": "It does not minify the WaveDrom WebApp javascript file when it is true",
-			"public": true,
-			"value": false
-		}
-	},
 	"manifest_version": 2
 }
