@@ -11,28 +11,28 @@ class WaveDrom {
 
     // Render <wavedrom>
     public static function renderTagWavedrom( $input, array $args, Parser $parser, PPFrame $frame ) {
-        $config = MediaWikiServices::getInstance()->getMainConfig();
-    	$waveDromUrl = $config->get( 'WaveDromURL' );
-		$waveDromDebug = $config->get( 'WaveDromDebug' );
-
-        // FIXME> Add an attribute for the skin we want to use; make it per diagram
-		$skinScript = Html::element(
-			'script',
-			[
-				'src' => "$waveDromUrl/skins/default.js",
-				'type' => 'text/javascript',
-			]
-		);
-        $parser->getOutput()->addHeadItem( $skinScript, 'WaveDromDefault' );
-
-        $wavedromScript = Html::element(
-        	'script',
-			[
-				'src' => $waveDromUrl . '/' . ( $waveDromDebug ? 'wavedrom.js' : 'wavedrom.min.js' ),
-				'type' => 'text/javascript',
-			]
-		);
-        $parser->getOutput()->addHeadItem( $wavedromScript, 'WaveDromMain' );
+//        $config = MediaWikiServices::getInstance()->getMainConfig();
+//    	$waveDromUrl = $config->get( 'WaveDromURL' );
+//		$waveDromDebug = $config->get( 'WaveDromDebug' );
+//
+//        // FIXME> Add an attribute for the skin we want to use; make it per diagram
+//		$skinScript = Html::element(
+//			'script',
+//			[
+//				'src' => "$waveDromUrl/skins/default.js",
+//				'type' => 'text/javascript',
+//			]
+//		);
+//        $parser->getOutput()->addHeadItem( $skinScript, 'WaveDromDefault' );
+//
+//        $wavedromScript = Html::element(
+//        	'script',
+//			[
+//				'src' => $waveDromUrl . '/' . ( $waveDromDebug ? 'wavedrom.js' : 'wavedrom.min.js' ),
+//				'type' => 'text/javascript',
+//			]
+//		);
+//        $parser->getOutput()->addHeadItem( $wavedromScript, 'WaveDromMain' );
 
         // Add a modules scripts to our header
         $parser->getOutput()->addModules( 'ext.wavedrom.postprocessing' );

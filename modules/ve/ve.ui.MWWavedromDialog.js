@@ -22,7 +22,7 @@ ve.ui.MWWavedromDialog = function VeUiMWWavedromDialog() {
 
 /* Inheritance */
 
-OO.inheritClass( ve.ui.MWWavedromDialog, ve.ui.MWExtensionDialog );
+OO.inheritClass( ve.ui.MWWavedromDialog, ve.ui.MWExtensionPreviewDialog );
 
 /* Static Properties */
 
@@ -235,6 +235,7 @@ ve.ui.MWWavedromDialog.prototype.updateActions = function () {
 		this.updateMwData( newMwData );
 		modified = !ve.compare( mwData, newMwData );
 	} else {
+		this.updatePreview();
 		modified = true;
 	}
 
@@ -272,7 +273,7 @@ ve.ui.MWWavedromDialog.prototype.updateMwData = function ( mwData ) {
 	// Parent method
 	ve.ui.MWWavedromDialog.super.prototype.updateMwData.call( this, mwData );
 
-	var isSelected = this.alignCheckbox.isSelected() ;
+	var isSelected = this.alignCheckbox.isSelected();
 
 	// LMP: Disable alignment selection if "wrap text" is not selected
 	this.align.setDisabled( !isSelected );
@@ -323,19 +324,22 @@ ve.ui.MWWavedromDialog.prototype.getSetupProcess = function ( data ) {
 	data = data || {};
 	return ve.ui.MWWavedromDialog.super.prototype.getSetupProcess.call( this, data )
 		.next( function () {
-			var inline = false, //this.selectedNode instanceof ve.dm.MWWavedromInlineNode,
-				mwAttrs = this.selectedNode && this.selectedNode.getAttribute( 'mw' ).attrs || {};
+			var mwAttrs,
+				mwAttrsDefault = { align: 'none', width: 850, height: 400 };
 
 			this.input.clearUndoStack();
 
 			this.actions.setMode( this.selectedNode ? 'edit' : 'insert' );
 
-			if ( this.selectedNode && !inline ) {
+			if ( this.selectedNode ) {
+				mwAttrs = this.selectedNode.getAttribute( 'mw' ).attrs;
 				this.scalable = this.selectedNode.getScalable();
 			} else {
-				this.scalable = ve.dm.MWWavedromNode.static.createScalable(
-					{ width: 850, height: 400 }
-				);
+				mwAttrs = mwAttrsDefault;
+				this.scalable = ve.dm.MWWavedromNode.static.createScalable( mwAttrs );
+				this.$wavedromContainer
+					.width( mwAttrs.width )
+					.height( mwAttrs.height )
 			}
 
 			this.alignCheckbox.setSelected( mwAttrs.align !== 'none' );
@@ -352,12 +356,11 @@ ve.ui.MWWavedromDialog.prototype.getSetupProcess = function ( data ) {
 			this.align.connect( this, { choose: 'updateActions' } );
 			this.alignCheckbox.connect( this, { change: 'updateActions' } );
 
-			this.dimensionsField.toggle( !inline );
-
-			this.alignField.toggle( !inline );
+			// this.dimensionsField.toggle( true );
+			// this.alignField.toggle( true );
 
 			// TODO: Support block/inline conversion
-			this.align.selectItemByData( mwAttrs.align || 'right' );
+			this.align.selectItemByData( mwAttrs.align && mwAttrs.align !== 'none' ? mwAttrs.align : 'right' );
 
 			this.dimensions.setDimensions( this.scalable.getCurrentDimensions() );
 

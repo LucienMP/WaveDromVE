@@ -25,12 +25,32 @@
 		}
 	},
 	"ResourceModules": {
+		"ext.wavedrom.library.skin.default": {
+			"scripts": "wavedrom/skins/default.js",
+			"targets": [
+				"desktop",
+				"mobile"
+			]
+		},
+		"ext.wavedrom.library": {
+			"scripts": "wavedrom/wavedrom.js",
+			"dependencies": [
+				"ext.wavedrom.library.skin.default"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
+			]
+		},
 		"ext.wavedrom.postprocessing": {
 			"scripts": [
 				"wavedromframe.js"
 			],
 			"styles": [
 				"wavedromframe.less"
+			],
+			"dependencies": [
+				"ext.wavedrom.library"
 			],
 			"messages": [
 				"visualeditor-mwwavedrom-tool"
@@ -52,6 +72,7 @@
 				"ve/ve.ui.MWWavedromDialog.less"
 			],
 			"dependencies": [
+				"ext.wavedrom.library",
 				"jquery.throttle-debounce",
 				"ext.visualEditor.mwcore",
 				"oojs-ui.styles.icons-content",
